@@ -15,3 +15,8 @@ function startRequest(url, opts) {
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.send();
 }
+
+function parseDOM(text) {
+    let parser = new DOMParser();
+    return parser.parseFromString(text, "text/html");
+}
