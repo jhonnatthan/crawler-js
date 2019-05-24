@@ -27,10 +27,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 45px;
 }
 
 .header__logo {
-    max-width: 100px;
+    max-width: 115px;
 }
 
 .header__imager {
@@ -47,6 +48,7 @@ body {
     width: 50vw;
     transition: all 500ms;
     transform: translateX(-100%);
+    z-index: 1;
 }
 
 .header__menu.active {
@@ -86,23 +88,122 @@ body {
     background: none;
     border: none;
     padding: 0;
-    width: 30px;
-    height: 20px;
+    width: 40px;
+    height: 30px;
+    outline: none;
 }
 
 .header__hamburguer span {
     display: block;
-    width: 30px;
-    height: 3px;
+    width: 40px;
+    height: 5px;
     background-color: white;
+    transition: all 400ms;
+}
+
+.header__hamburguer.active span:first-child {
+    transform: rotate(45deg) translateY(9px) translateX(9px);
+}
+
+.header__hamburguer.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.header__hamburguer.active span:last-child {
+    transform: rotate(-45deg) translateY(-9px) translateX(9px);
 }
 
 .content__films-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     list-style-type: none;
 }
 
 .content__film {
-    width: 15%;
+    position: relative;
+    width: 45%;
+    margin-bottom: 40px;
+}
+
+.content__film h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 23px;
+    color: white;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.content__film ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;;
+}
+
+.content__film ul li {
+    font-family: 'BebasNeue', sans-serif;
+    font-size: 18px;
+    color: #5F090E;
+    border-radius: 3px;
+    padding: 2px 11px;
+    background-color: white;
+}
+
+.content__film ul li:not(:last-child) {
+    margin-right: 5px;
+}
+.film__box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.film__detail {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 500ms;
+    opacity: 0;
+}
+
+.film__detail a {
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'BebasNeue', sans-serif;
+    font-size: 20px;
+    color: #5F090E;
+    border-radius: 3px;
+    padding: 2px 11px;
+    background-color: white;
+}
+
+.content__film:hover .film__detail, .content__film:focus .film__detail {
+    opacity: 1;
+}
+
+@media screen and (min-width: 768px) {
+    .header__menu {
+        display: flex;
+        position: relative;
+        height: auto;
+        width: auto;
+        background: transparent;
+        padding: 0;
+        width: calc(100% - 115px);
+    }
+
+    .header__list {
+        flex-direction: row;
+    }
+
+    .header__hamburguer {
+        display: none;
+    }
 }

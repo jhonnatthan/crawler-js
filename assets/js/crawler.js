@@ -1,5 +1,11 @@
 // Eventos 
+let menuButton = document.querySelector('#menu__button');
 
+menuButton.addEventListener('click', (ev) => {
+    let headerMenu = document.querySelector('.header__menu');
+    menuButton.classList.toggle('active');
+    headerMenu.classList.toggle('active');
+});
 
 // Crawler
 let films = {

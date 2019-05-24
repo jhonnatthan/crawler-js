@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>Trabalho de Programação de Sítios Internet</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
     <header class="header">
         <div class="header__logo">
@@ -14,12 +16,12 @@
         </div>
         <nav class="header__menu">
             <ul class="header__list">
-                <li class="header__item"><a href="#">Em cartaz</a></li>
+                <li class="header__item active"><a href="#">Em cartaz</a></li>
                 <li class="header__item"><a href="#">Cinemas</a></li>
                 <li class="header__item"><a href="#">Sobre</a></li>
             </ul>
         </nav>
-        <button class="header__hamburguer">
+        <button class="header__hamburguer" id="menu__button">
             <span></span>
             <span></span>
             <span></span>
@@ -29,7 +31,46 @@
         <section class="content__films">
             <ul class="content__films-list">
                 <li class="content__film">
-                    <img src="https://www.cinemark.com.br/content/uploads/movie/6804/hellboy-poster-desktop.png" alt="HellBoy">
+                    <div class="film__box">
+                        <img src="https://www.cinemark.com.br/content/uploads/movie/6804/hellboy-poster-desktop.png"
+                            alt="HellBoy">
+                        <div class="film__detail">
+                            <a href="cinemas.html">Ir para cinemas</a>
+                        </div>
+                    </div>
+                    <h2>Hellboy</h2>
+                    <ul>
+                        <li>Ação</li>
+                        <li>Drama</li>
+                    </ul>
+                </li>
+                <li class="content__film">
+                    <div class="film__box">
+                        <img src="https://www.cinemark.com.br/content/uploads/movie/6804/hellboy-poster-desktop.png"
+                            alt="HellBoy">
+                        <div class="film__detail">
+                            <a href="cinemas.html">Ir para cinemas</a>
+                        </div>
+                    </div>
+                    <h2>Hellboy</h2>
+                    <ul>
+                        <li>Ação</li>
+                        <li>Drama</li>
+                    </ul>
+                </li>
+                <li class="content__film">
+                    <div class="film__box">
+                        <img src="https://www.cinemark.com.br/content/uploads/movie/6804/hellboy-poster-desktop.png"
+                            alt="HellBoy">
+                        <div class="film__detail">
+                            <a href="cinemas.html">Ir para cinemas</a>
+                        </div>
+                    </div>
+                    <h2>Hellboy</h2>
+                    <ul>
+                        <li>Ação</li>
+                        <li>Drama</li>
+                    </ul>
                 </li>
             </ul>
         </section>
@@ -37,4 +78,5 @@
     <footer></footer>
     <script type="text/javascript" src="assets/js/crawler.js"></script>
 </body>
+
 </html>
