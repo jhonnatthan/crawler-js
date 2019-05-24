@@ -10,15 +10,30 @@
 <body>
     <header class="header">
         <div class="header__logo">
-            <img src="header__image" alt="">
+            <img class="header__image" src="assets/img/logo.png" alt="">
         </div>
         <nav class="header__menu">
             <ul class="header__list">
-                <li class="header__item"></li>
+                <li class="header__item"><a href="#">Em cartaz</a></li>
+                <li class="header__item"><a href="#">Cinemas</a></li>
+                <li class="header__item"><a href="#">Sobre</a></li>
             </ul>
         </nav>
+        <button class="header__hamburguer">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
-    <main></main>
+    <main class="content container">
+        <section class="content__films">
+            <ul class="content__films-list">
+                <li class="content__film">
+                    <img src="https://www.cinemark.com.br/content/uploads/movie/6804/hellboy-poster-desktop.png" alt="HellBoy">
+                </li>
+            </ul>
+        </section>
+    </main>
     <footer></footer>
     <script type="text/javascript" src="assets/js/crawler.js"></script>
 </body>
