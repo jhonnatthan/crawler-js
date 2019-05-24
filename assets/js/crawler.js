@@ -33,6 +33,23 @@ function getCineMark() {
 
 }
 
+function getCineRoxy() {
+    startRequest('http://www.cineroxy.com.br/', {
+        html: true,
+        callBack: (dom) => {
+            console.log(dom);
+            let cartazes = dom.querySelectorAll('section[class*="card-movie-theater"]');
+
+            cartazes.forEach(cartaz => {
+                console.log(cartaz);
+            })
+        }
+    });
+}
+
+function getEspacoFilmes() {
+    let cineRoxy = startRequest('https://cineroxy.com.br/');
+}
 
 function startRequest(url, opts) {
     let xhr = new XMLHttpRequest();
