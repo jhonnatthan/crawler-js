@@ -9,7 +9,8 @@ window.onload = function () {
 }
 
 function startApp() {
-    getCineMark();
+    // getCineMark();
+    // getCineRoxy();
 }
 
 function getCineMark() {
@@ -21,10 +22,14 @@ function getCineMark() {
             let cartazes = dom.querySelectorAll('.movie-container');
 
             cartazes.forEach(cartaz => {
-                let title = cartaz.querySelector('.movie-title a').innerText.trim();
+                let titleEl = cartaz.querySelector('.movie-title a');
+                let hasChild = titleEl.querySelector('span') != null;
+                let title = hasChild ? titleEl.innerText : titleEl.querySelector('span').innerText;
+                
                 let image = url + cartaz.querySelector('source').getAttribute('srcset');
+                let sortedTitle = title.replace(/\s/g, '').split("").sort((a, b) => a > b ? 1 : -1 ).join("").toLowerCase();
 
-                films.cineMark.push({ title, image });
+                films.cineMark.push({ title, image, sortedTitle });
             });
 
             console.log(films);
@@ -37,8 +42,10 @@ function getCineRoxy() {
     startRequest('http://www.cineroxy.com.br/', {
         html: true,
         callBack: (dom) => {
-            console.log(dom);
-            let cartazes = dom.querySelectorAll('section[class*="card-movie-theater"]');
+            
+            let cartazes = dom.querySelectorAll('div[class^="cphConteudo_Cartaz_rptFilmes_ctl00_"]');
+
+            console.log(cartazes);
 
             cartazes.forEach(cartaz => {
                 console.log(cartaz);
