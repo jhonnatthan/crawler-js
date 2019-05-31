@@ -1,23 +1,21 @@
 // Eventos 
-let menuButton = document.querySelector('#menu__button');
+/* let menuButton = document.querySelector('#menu__button');
 
 menuButton.addEventListener('click', (ev) => {
     let headerMenu = document.querySelector('.header__menu');
     menuButton.classList.toggle('active');
     headerMenu.classList.toggle('active');
-});
+}); */
 
 // Crawler
 let films = {
     cineRoxy: [],
     cineMark: [],
     cineSystem: [],
-    all: [],
     complete: false
 };
 
 window.onload = function () {
-    document.querySelector('.loader').style.display = 'none';
     startApp();
 }
 
@@ -27,6 +25,8 @@ async function startApp() {
         getCineRoxy(),
         getCineSystem()
     ]);
+    
+    document.querySelector('.loader').style.display = 'none';
     getAll();
 }
 
@@ -90,38 +90,9 @@ async function getCineSystem() {
 
 
 function getAll() {
-    films.all = Object.assign([], films.cineMark);
-
-    let cineRoxyExclusives = [];
-    films.cineRoxy.forEach(filmA => {
-        let diff = false;
-        films.all.forEach(filmB => {
-            if (filmB.sortedTitle != filmA.sortedTitle) {
-                console.log('diff', filmA, filmB);
-                diff = true;
-            };
-        });
-
-        if (diff) {
-            cineRoxyExclusives.push(filmA);
-        }
-    });
-
-    let cineSystemExclusives = [];
-    films.cineSystem.forEach(filmA => {
-        let diff = false;
-        films.all.forEach(filmB => {
-            if (filmB.sortedTitle != filmA.sortedTitle) {
-                diff = true;
-            };
-        });
-
-        if (diff) {
-            cineSystemExclusives.push(filmA);
-        }
-    });
-
-    console.log(films.all, cineRoxyExclusives, cineSystemExclusives);
+    geraHTML('Cine Roxy', films.cineRoxy, 'https://cineroxy.com.br/');
+    geraHTML('Cine Mark', films.cineMark, 'https://www.cinemark.com.br/');
+    geraHTML('Cine System', films.cineSystem, 'https://www.cinesystem.com.br/filmes/em-cartaz/');
 }
 
 async function startRequest(url, type) {
@@ -174,4 +145,53 @@ function trataTitulo(text) {
     text = text.join("");
 
     return text;
+}
+
+function geraHTML(cinema, filmes, url) {
+    let main = document.querySelector('main');
+
+    let section = document.createElement('section');
+    section.classList.add('content__films');
+
+    let h1 = document.createElement('h1');
+    h1.innerText = cinema;
+    section.appendChild(h1);
+    
+    let ul = document.createElement('ul');
+    ul.classList.add('content__films-list');
+
+    filmes.forEach(filme => {
+
+        let h2 = document.createElement('h2');
+        h2.innerText = filme.title;
+
+        let a = document.createElement('a');
+        a.href = url;
+        a.target = 'blank';
+        a.innerText = "Ir para cinema";
+
+        let divDetail = document.createElement('div');
+        divDetail.classList.add('film__detail');
+        divDetail.appendChild(a);
+
+        let img = document.createElement('img');
+        img.src = filme.image;
+        img.setAttribute('alt', filme.title);
+
+        let div = document.createElement('div');
+        div.classList.add('film__box');
+        div.appendChild(img);
+        div.appendChild(divDetail);
+
+        let li = document.createElement('li');
+        li.classList.add('content__film');
+        li.appendChild(div);
+        li.appendChild(h2);
+
+        ul.appendChild(li);
+    });
+
+    section.appendChild(ul);
+    
+    main.appendChild(section);
 }

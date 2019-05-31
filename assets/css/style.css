@@ -121,7 +121,7 @@ body {
 .content__films-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     list-style-type: none;
 }
 
@@ -129,6 +129,10 @@ body {
     position: relative;
     width: 45%;
     margin-bottom: 40px;
+}
+
+.content__films h1 {
+    color: white;
 }
 
 .content__film h2 {
@@ -164,11 +168,12 @@ body {
     display: flex;
     justify-content: center;
     width: fit-content;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
 .film__box img {
     border-radius: 5px;
+    height: 350px;
 }
 
 .film__detail {
