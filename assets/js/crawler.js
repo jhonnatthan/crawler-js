@@ -17,14 +17,17 @@ let films = {
 };
 
 window.onload = function () {
+    document.querySelector('.loader').style.display = 'none';
     startApp();
 }
 
 async function startApp() {
-    await getCineMark();
-    // await getCineRoxy();
-    // await getCineSystem();
-    // getAll();
+    await Promise.all([
+        getCineMark(),
+        getCineRoxy(),
+        getCineSystem()
+    ]);
+    getAll();
 }
 
 async function getCineMark() {
@@ -94,13 +97,14 @@ function getAll() {
         let diff = false;
         films.all.forEach(filmB => {
             if (filmB.sortedTitle != filmA.sortedTitle) {
+                console.log('diff', filmA, filmB);
                 diff = true;
             };
         });
 
         if (diff) {
             cineRoxyExclusives.push(filmA);
-        }''
+        }
     });
 
     let cineSystemExclusives = [];
