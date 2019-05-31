@@ -11,82 +11,93 @@ menuButton.addEventListener('click', (ev) => {
 let films = {
     cineRoxy: [],
     cineMark: [],
-    espacoFilmes: []
+    cineSystem: [],
+    all: [],
+    complete: false
 };
 
 window.onload = function () {
     startApp();
 }
 
-function startApp() {
-    // getCineMark();
-    // getCineRoxy();
+async function startApp() {
+    await getCineMark();
+    // await getCineRoxy();
+    // await getCineSystem();
+    // getAll();
 }
 
-function getCineMark() {
+async function getCineMark() {
     let url = 'https://www.cinemark.com.br';
-    startRequest(url + '/santos/filmes/em-cartaz', {
-        html: true,
-        callBack: (dom) => {
 
-            let cartazes = dom.querySelectorAll('.movie-container');
+    let dom = await startRequest(url + '/santos/filmes/em-cartaz', 'html');
 
-            cartazes.forEach(cartaz => {
-                let titleEl = cartaz.querySelector('.movie-title a');
-                let hasChild = titleEl.querySelector('span') != null;
-                let title = hasChild ? titleEl.innerText : titleEl.querySelector('span').innerText;
-                
-                let image = url + cartaz.querySelector('source').getAttribute('srcset');
-                let sortedTitle = title.replace(/\s/g, '').split("").sort((a, b) => a > b ? 1 : -1 ).join("").toLowerCase();
+    let cartazes = dom.querySelectorAll('.movie-container');
 
-                films.cineMark.push({ title, image, sortedTitle });
-            });
+    cartazes.forEach(cartaz => {
+        let titleEl = cartaz.querySelector('.movie-title a');
 
-            console.log(films);
-        }
-    });
+        let hasChild = titleEl.querySelector('span') != null;
 
-}
+        let title = hasChild ? titleEl.querySelector('span').innerText : titleEl.innerText;
+        title = title.trim().replace(/(\r\n|\n|\r)/gm, "");
 
-function getCineRoxy() {
-    startRequest('http://www.cineroxy.com.br/', {
-        html: true,
-        callBack: (dom) => {
-            
-            let cartazes = dom.querySelectorAll('div[class^="cphConteudo_Cartaz_rptFilmes_ctl00_"]');
+        let image = url + cartaz.querySelector('source').getAttribute('srcset');
+        let sortedTitle = trataTitulo(title);
 
-            console.log(cartazes);
-
-            cartazes.forEach(cartaz => {
-                console.log(cartaz);
-            })
-        }
+        films.cineMark.push({ title, image, sortedTitle });
     });
 }
 
-function getEspacoFilmes() {
-    let cineRoxy = startRequest('https://cineroxy.com.br/');
+async function getCineRoxy() {
+    let url = 'http://www.cineroxy.com.br';
+
+    let dom = await startRequest(url, 'html');
+
+    let cartazes = dom.querySelectorAll('div[id^="cphConteudo_Cartaz_rptFilmes_ctl00_"]');
+
+    cartazes.forEach(cartaz => {
+        let title = cartaz.querySelector('h2').innerText;
+        title = title.trim().replace(/(\r\n|\n|\r)/gm, "");
+
+        let image = cartaz.querySelector('img').getAttribute('src');
+        let sortedTitle = trataTitulo(title);
+
+        films.cineRoxy.push({ title, image, sortedTitle });
+    });
 }
 
-function startRequest(url, opts) {
-    let xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            if (opts.html) {
-                opts.callBack(parseDOM(this.responseText));
-            } else {
-                opts.callBack(this.responseText);
-            }
-        }
-    };
 
-    xhr.open("GET", "https://cors-anywhere.herokuapp.com/" + url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.send();
+async function startRequest(url, type) {
+    
 }
 
 function parseDOM(text) {
     let parser = new DOMParser();
     return parser.parseFromString(text, "text/html");
+}
+
+function trataTitulo(text) {
+    const a = 'àáäâãèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ'
+    const b = 'aaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh'
+    const p = new RegExp(a.split('').join('|'), 'g')
+
+    text = text.replace(':', '');
+    text = text.replace('–', '');
+    text = text.replace(/\s/g, '');
+    text = text.replace(p, c => b.charAt(a.indexOf(c)));
+    text = text.replace(/&/g, '-and-');
+    text = text.replace(/[\s\W-]+/g, '-');
+
+    text = text.toLowerCase();
+    text = text.split("")
+    text = text.sort((a, b) => {
+        if (a > b) { return 1; }
+        if (a < b) { return -1; }
+        return 0;
+    });
+    text = text.join("");
+
+    return text;
 }

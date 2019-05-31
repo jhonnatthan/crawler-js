@@ -1,3 +1,5 @@
+@import 'bootstrap.min.css';
+
 * {
     margin: 0;
     padding: 0;
@@ -13,6 +15,7 @@
 img {
     max-width: 100%;
     height: auto;
+    object-fit: cover;
 }
 
 body {
@@ -153,10 +156,17 @@ body {
 .content__film ul li:not(:last-child) {
     margin-right: 5px;
 }
+
 .film__box {
     position: relative;
     display: flex;
     justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.film__box img {
+    border-radius: 5px;
 }
 
 .film__detail {
@@ -197,13 +207,25 @@ body {
         background: transparent;
         padding: 0;
         width: calc(100% - 115px);
+        transform: translateY(0);
     }
 
     .header__list {
         flex-direction: row;
+        justify-content: space-around;
     }
 
     .header__hamburguer {
         display: none;
+    }
+
+    .content__film {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .content__film {
+        width: 15%;
     }
 }
