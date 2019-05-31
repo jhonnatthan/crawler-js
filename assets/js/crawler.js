@@ -67,6 +67,23 @@ async function getCineRoxy() {
     });
 }
 
+async function getCineSystem() {
+    let url = 'https://www.cinesystem.com.br';
+
+    let dom = await startRequest(url + '/filmes/em-cartaz/_em_cartaz.php?d=31', 'html');
+
+    let cartazes = dom.querySelectorAll('.bloco-posters');
+
+    cartazes.forEach(cartaz => {
+        let title = cartaz.querySelector('h3').innerText;
+        title = title.trim().replace(/(\r\n|\n|\r)/gm, "");
+
+        let image = url + cartaz.querySelector('img').getAttribute('src');
+        let sortedTitle = trataTitulo(title);
+
+        films.cineSystem.push({ title, image, sortedTitle });
+    });
+}
 
 
 async function startRequest(url, type) {
