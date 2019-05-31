@@ -86,6 +86,40 @@ async function getCineSystem() {
 }
 
 
+function getAll() {
+    films.all = Object.assign([], films.cineMark);
+
+    let cineRoxyExclusives = [];
+    films.cineRoxy.forEach(filmA => {
+        let diff = false;
+        films.all.forEach(filmB => {
+            if (filmB.sortedTitle != filmA.sortedTitle) {
+                diff = true;
+            };
+        });
+
+        if (diff) {
+            cineRoxyExclusives.push(filmA);
+        }''
+    });
+
+    let cineSystemExclusives = [];
+    films.cineSystem.forEach(filmA => {
+        let diff = false;
+        films.all.forEach(filmB => {
+            if (filmB.sortedTitle != filmA.sortedTitle) {
+                diff = true;
+            };
+        });
+
+        if (diff) {
+            cineSystemExclusives.push(filmA);
+        }
+    });
+
+    console.log(films.all, cineRoxyExclusives, cineSystemExclusives);
+}
+
 async function startRequest(url, type) {
     let myHeaders = new Headers();
     let myOpt = {
