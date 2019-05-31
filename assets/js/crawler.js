@@ -70,7 +70,26 @@ async function getCineRoxy() {
 
 
 async function startRequest(url, type) {
-    
+    let myHeaders = new Headers();
+    let myOpt = {
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default'
+    };
+
+    let content = await fetch("https://cors-anywhere.herokuapp.com/" + url, myOpt);
+
+    let data = await content.text();
+
+    switch (type) {
+        case 'html':
+            return parseDOM(data);
+        case 'json':
+            return JSON.parse(data);
+        default:
+            return data;
+    }
 }
 
 function parseDOM(text) {
