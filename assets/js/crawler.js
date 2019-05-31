@@ -25,7 +25,7 @@ async function startApp() {
         getCineRoxy(),
         getCineSystem()
     ]);
-    
+
     document.querySelector('.loader').style.display = 'none';
     getAll();
 }
@@ -156,11 +156,11 @@ function geraHTML(cinema, filmes, url) {
     let h1 = document.createElement('h1');
     h1.innerText = cinema;
     section.appendChild(h1);
-    
+
     let ul = document.createElement('ul');
     ul.classList.add('content__films-list');
 
-    filmes.forEach(filme => {
+    filmes.forEach((filme, index) => {
 
         let h2 = document.createElement('h2');
         h2.innerText = filme.title;
@@ -184,7 +184,8 @@ function geraHTML(cinema, filmes, url) {
         div.appendChild(divDetail);
 
         let li = document.createElement('li');
-        li.classList.add('content__film');
+        li.classList.add('content__film', 'animated', 'fadeInUp');
+        li.style.animationDelay = `${0 + (1 * index / 1.8)}s`;
         li.appendChild(div);
         li.appendChild(h2);
 
@@ -192,6 +193,6 @@ function geraHTML(cinema, filmes, url) {
     });
 
     section.appendChild(ul);
-    
+
     main.appendChild(section);
 }
